@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="MemberMapper">
+  
+   <resultMap type="Member"					id="memberResult">
+	   <id 	   property="name"  			column="MEMBER_NAME"/>
+	   <result property="id" 				column="MEMBER_ID"/>
+	   <result property="pw" 				column="MEMBER_PW"/>
+	   <result property="nick" 				column="MEMBER_NICK"/>
+	   <result property="phone" 			column="MEMBER_PHONE"/>
+  </resultMap>
+  
+  <insert id="registerMember">
+  	INSERT INTO MEMBER_TBL
+  	VALUES(#{name}, #{id}, #{pw}, #{nick}, #{phone})
+  </insert>
+  
+  <select id="loginMember" resultMap="memberResult">
+  	SELECT MEMBER_ID, MEMBER_NAME FROM MEMBER_TBL
+  	WHERE MEMBER_ID = #{id} AND MEMBER_PW = #{pw}
+  </select>
+  
+  </mapper>
