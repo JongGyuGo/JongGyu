@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="BannerMapper">
+  
+   <resultMap type="Banner"						id="bannerResultMap">
+	   <id 	   property="bennerNo"  			column="BANNER_NO"/>
+	   <result property="bennerPath" 			column="BANNER_PATH"/>
+	   <result property="bennerFileName" 		column="BANNER_FILENAME"/>
+	   <result property="bennerFileRename" 		column="BANNER_FILERENAME"/>
+	   <result property="bennerMsg" 			column="BANNER_MSG"/>
+	   <result property="bennerLink" 			column="WRITER"/>
+	   <result property="writer" 				column="BANNER_LINK"/>
+  </resultMap>
+  
+  <!-- 배너 체크 -->
+  <select id="chkBanner" resultType="_int">
+  	SELECT COUNT(*) FROM BANNER_TBL
+  	WHERE BANNER_NO = #{bannerNo}
+  </select>
+  
+  <!-- 배너 업데이트 -->
+  <update id="updateBanner">
+  	UPDATE BANNER_TBL
+  	SET BANNER_PATH = #{bennerPath},
+  		BANNER_FILENAME = #{bennerFileName},
+  		BANNER_FILERENAME = #{bennerFileRename},
+  		BANNER_MSH = #{bennerMsg},
+  		BANNER_LINK = #{bennerLink}
+  	WHERE BANNER_NO = #{bennerNo}
+  </update>
+  
+  <!-- 배너 등록 -->
+  <insert id="registerBanner">
+  	INSERT INTO BANNER_TBL
+  	VALUES(#{bennerNo}, #{bennerPath}, #{bennerFileName}, #{bennerFileRename}, #{bennerMsg}, #{bennerLink}, '관리자')
+  </insert>
+  
+  <!-- 배너 하나씩 가져오기 -->
+  <select id="printOneBanner" resultType="Banner">
+  	SELECT * FROM BANNER_TBL
+  	WHERE BANNER_NO = #{i}
+  </select>
+  
+  <!-- 배너 리스트  -->
+  <select id="bannerList" resultType="Banner">
+  	SELECT * FROM BANNER_TBL
+  	ORDER BY 1
+  </select>
+  
+  </mapper>

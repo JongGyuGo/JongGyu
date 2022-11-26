@@ -37,14 +37,27 @@
 </head>
 	<title>게시판을 만들어볼까</title>
 
-
-
 <body>
 		<h1 align="center">종로전통떡집</h1>
-		<hr>
-		
-		
-		
+<hr>
+
+	<div class="hero-slider">
+		<c:forEach items="${bList }" var="banner">
+			<div class="slider-item th-fullpage hero-area"
+				style="background-image: url(/resources/images/slider/${banner.bannerRename });">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8 text-center">
+							<p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">광고</p>
+							<h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">${banner.bannerMsg }</h1>
+							<a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="${banner.bannerLink }">Shop Now</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+<hr>
 	<div class="login-area">
 		<c:if test="${empty loginUser }">
 			<form action="gyu/loginUser" method="post">
@@ -67,7 +80,7 @@
 			</form>
 		</c:if>
 		
-		<c:if test="${sessionScope.loginUser.id ne null}">
+		<c:if test="${sessionScope.loginUser.id ne null and sessionScope.loginUser.id ne 'admin'}">
 			<table align="right">
 				<tr>
 					<td colspan="2"><b>${sessionScope.loginUser.id }</b>님 환영합니다.</td>
@@ -79,6 +92,20 @@
 				</tr>
 			</table>
 		</c:if>	
+		
+		<c:if test="${sessionScope.loginUser.id ne null and sessionScope.loginUser.id eq 'admin'}">
+			<table align="right">
+				<tr>
+					<td colspan="2"><b>${sessionScope.loginUser.id }</b>님 환영합니다.</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><a href="/admin/adminPageView">관리자 페이지</a></td>
+					<td>정보수정</td>
+					<td><a href="/gyu/logout">로그아웃</a></td>
+				</tr>
+			</table>
+		</c:if>
 	</div>
 	
 	<div class="nav-bar">
